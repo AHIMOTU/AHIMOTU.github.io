@@ -161,9 +161,10 @@
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js"></script>
 <script>
-  /*
+  if (location.search.includes('debugger')) {
+    localStorage.clear();
+  }
 
-  */
   const { createApp, ref, onMounted } = Vue
 
   const knowTime = new Date('2023-06-04 12:45:21').getTime();
