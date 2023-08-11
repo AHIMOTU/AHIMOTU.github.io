@@ -1,10 +1,259 @@
-<!DOCTYPE html>
-<html lang="en">
+<html data-theme="valentine">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=devide-width, initial-scale=1.0"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/daisyui/3.5.1/full.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      [data-theme=valentine] {
+        color-scheme: light;
+        --pf: 353 74% 60%;
+        --sf: 254 86% 70%;
+        --af: 181 56% 63%;
+        --nf: 336 43% 41%;
+        --b2: 318 46% 82%;
+        --b3: 318 46% 75%;
+        --pc: 356 26% 14%;
+        --sc: 256 20% 15%;
+        --ac: 181 16% 15%;
+        --inc: 239 85% 93%;
+        --suc: 126 38% 89%;
+        --wac: 29 59% 11%;
+        --erc: 11 100% 91%;
+        --rounded-box: 1rem;
+        --rounded-badge: 1.9rem;
+        --animation-btn: .25s;
+        --animation-input: .2s;
+        --btn-text-case: uppercase;
+        --btn-focus-scale: .95;
+        --border-btn: 1px;
+        --tab-border: 1px;
+        --tab-radius: .5rem;
+        --p: 353 74% 67%;
+        --s: 254 86% 77%;
+        --a: 181 56% 70%;
+        --n: 336 43% 48%;
+        --nc: 318 46% 89%;
+        --b1: 318 46% 89%;
+        --bc: 344 38% 28%;
+        --in: 221 83% 53%;
+        --su: 142 76% 36%;
+        --wa: 32 95% 44%;
+        --er: 0 72% 51%;
+        --rounded-btn: 1.9rem
+      }
+      [v-cloak] {
+        display: none;
+      }
+    </style>
 </head>
 <body>
-    <div>hello world</div>
+
+<div id="app" class="bg-base-100">
+    <div v-if="isLove && visible" v-cloak>
+        <div class="flex flex-col items-center py-4">
+            <span class="pr-4 font-mono text-4xl">相识</span>
+            <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedKnowTimeData.days }}</span>
+                    <span>days</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedKnowTimeData.hours }}</span>
+                    <span>hours</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedKnowTimeData.minutes }}</span>
+                    <span>min</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedKnowTimeData.seconds }}</span>
+                    <span>sec</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center py-4">
+            <span class="pr-4 font-mono text-4xl">相见</span>
+            <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedMeetTimeData.days }}</span>
+                    <span>days</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedMeetTimeData.hours }}</span>
+                    <span>hours</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedMeetTimeData.minutes }}</span>
+                    <span>min</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedMeetTimeData.seconds }}</span>
+                    <span>sec</span>
+                </div>
+            </div>
+        </div>
+        <div v-if="isLove" class="flex flex-col items-center py-4">
+            <span class="pr-4 font-mono text-4xl" @click="visible = false">相恋</span>
+            <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedLoveTimeData.days }}</span>
+                    <span>days</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedLoveTimeData.hours }}</span>
+                    <span>hours</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedLoveTimeData.minutes }}</span>
+                    <span>min</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ passedLoveTimeData.seconds }}</span>
+                    <span>sec</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else v-cloak class="letter p-2">
+        <p class="pb-2">我们的故事从2023年6月4号开始</p>
+        <p>你是那么的优雅</p>
+        <p>第一次见面时的白色长裙让我印象深刻</p>
+        <p>你是那么的温柔</p>
+        <p>和你说话总是感到很舒服</p>
+        <p>你是那么的乐观</p>
+        <p>无论遇到什么事都是开心面对</p>
+        <p>你是那么的自信</p>
+        <p>与人交谈总是无话不说</p>
+        <p>你是那么的上进</p>
+        <p>从高中到大学到工作都是这样</p>
+        <p>你是那么的独立</p>
+        <p>在大学就做过那么多的兼职</p>
+        <p>你是那么的执着</p>
+        <p>为了解出八皇后游戏可以投入几个小时</p>
+        <p>你是那么的优秀</p>
+        <p>你是那么的可爱</p>
+        <p>......</p>
+        <p>和你相处的越久 我越觉得我遇到喜欢的人了</p>
+        <p>我不太擅长表达 但就像我一直对你说的</p>
+        <p>我会用真心用行动来证明我对你的喜欢</p>
+        <p>我愿意</p>
+        <p>陪你一起抓娃娃</p>
+        <p>陪你完成66个心愿</p>
+        <p>陪你去你想去到地方旅游</p>
+        <p>陪你过你想过的所有节日</p>
+        <p>陪你做一切你喜欢的事</p>
+        <p class="pt-2">在我们相识的{{ passedKnowTimeData.days }}天 相见的{{ passedMeetTimeData.days }}天里</p>
+        <p>我们已经从陌生人到熟人到普通朋友再到无话不谈的朋友</p>
+        <p>此时此刻我想对你说</p>
+        <div class="py-5 text-center">
+            <button v-if="!isLove" class="btn" @click="onClick">
+                做我女朋友吧
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+            <button v-else class="btn" @click="visible = true">
+                你还是我的女朋友
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js"></script>
+<script>
+  /*
+
+  */
+  const { createApp, ref, onMounted } = Vue
+
+  const knowTime = new Date('2023-06-04 12:45:21').getTime();
+  const meetTime = new Date('2023-06-22 18:11:25').getTime();
+  let loveTime = localStorage.getItem('love-time') ? Number(localStorage.getItem('love-time')) : undefined;
+
+  const SECOND = 1000;
+  const MINUTE = 60 * SECOND;
+  const HOUR = 60 * MINUTE;
+  const DAY = 24 * HOUR;
+
+  function parseTimeData(time) {
+    const days = Math.floor(time / DAY);
+    const hours = Math.floor((time % DAY) / HOUR);
+    const minutes = Math.floor((time % HOUR) / MINUTE);
+    const seconds = Math.floor((time % MINUTE) / SECOND);
+    const milliseconds = Math.floor(time % SECOND);
+
+    return {
+      days: padZero(days),
+      hours: padZero(hours),
+      minutes: padZero(minutes),
+      seconds: padZero(seconds),
+      milliseconds,
+    };
+  }
+
+  function padZero(num, targetLength = 2) {
+    let str = num + '';
+
+    while (str.length < targetLength) {
+      str = '0' + str;
+    }
+
+    return str;
+  }
+
+  createApp({
+    setup() {
+      const isLove = ref(!!loveTime)
+      const visible = ref(true)
+      const passedKnowTimeData = ref({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      })
+      const passedMeetTimeData = ref({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      })
+      const passedLoveTimeData = ref({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      })
+      onMounted(() => {
+        count();
+      })
+
+      function count() {
+        setTimeout(() => {
+          passedKnowTimeData.value = parseTimeData(Date.now() - knowTime)
+          passedMeetTimeData.value = parseTimeData(Date.now() - meetTime)
+          if (loveTime) {
+            passedLoveTimeData.value = parseTimeData(Date.now() - loveTime)
+          }
+          count();
+        }, 1000)
+      }
+
+      function onClick() {
+        loveTime = Date.now();
+        isLove.value = true;
+        localStorage.setItem('love-time', Date.now() + '');
+      }
+
+      return {
+        visible,
+        isLove,
+        passedKnowTimeData,
+        passedMeetTimeData,
+        passedLoveTimeData,
+        onClick,
+      }
+    }
+  }).mount('#app')
+</script>
 </body>
 </html>
