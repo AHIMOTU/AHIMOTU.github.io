@@ -1,7 +1,7 @@
 <html data-theme="valentine">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=devide-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"/>
     <link href="https://cdn.bootcdn.net/ajax/libs/daisyui/3.5.1/full.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -114,6 +114,19 @@
                 </div>
             </div>
         </div>
+        <!-- Open the modal using ID.showModal() method -->
+        <div v-if="showBtn" class="flex flex-col items-center py-4">
+            <button class="btn" onclick="my_modal_1.showModal()">想对你说</button>
+        </div>
+        <dialog id="my_modal_1" class="modal">
+            <form method="dialog" class="modal-box">
+                <h3 class="font-bold text-lg">MY媛宝</h3>
+                <p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>
+                <div class="modal-action">
+                    <button class="btn">湘子</button>
+                </div>
+            </form>
+        </dialog>
     </div>
     <div v-else v-cloak class="letter p-2">
         <p class="pb-2">我们的故事从2023年6月4号开始</p>
@@ -246,12 +259,15 @@
         localStorage.setItem('love-time', Date.now() + '');
       }
 
+      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
+
       return {
         visible,
         isLove,
         passedKnowTimeData,
         passedMeetTimeData,
         passedLoveTimeData,
+        showBtn,
         onClick,
       }
     }
