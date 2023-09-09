@@ -120,10 +120,15 @@
         </div>
         <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
-                <h3 class="font-bold text-lg">MY媛宝</h3>
-                <p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>
+                <!--<h3 class="font-bold text-lg">MY媛宝</h3>-->
+                <!--<p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>-->
+                <!--<div class="modal-action">-->
+                <!--    <button class="btn">湘子</button>-->
+                <!--</div>-->
+                <h3 class="font-bold text-lg">张老师</h3>
+                <p class="py-4">教师节快乐！愿你开心工作每一天！<br />PS: 我的媛宝辛苦啦！希望你能早点当上领导不再被欺负😁</p>
                 <div class="modal-action">
-                    <button class="btn">湘子</button>
+                    <button class="btn">张同学</button>
                 </div>
             </form>
         </dialog>
@@ -259,7 +264,8 @@
         localStorage.setItem('love-time', Date.now() + '');
       }
 
-      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
+      // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
+      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
 
       return {
         visible,
