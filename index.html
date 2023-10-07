@@ -114,6 +114,27 @@
                 </div>
             </div>
         </div>
+        <div class="flex flex-col items-center py-4">
+            <span class="pr-4 font-mono text-4xl">下次相见</span>
+            <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ nextMeetTimeData.days }}</span>
+                    <span>days</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ nextMeetTimeData.hours }}</span>
+                    <span>hours</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ nextMeetTimeData.minutes }}</span>
+                    <span>min</span>
+                </div>
+                <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                    <span class="font-mono text-3xl">{{ nextMeetTimeData.seconds }}</span>
+                    <span>sec</span>
+                </div>
+            </div>
+        </div>
         <!-- Open the modal using ID.showModal() method -->
         <div v-if="showBtn" class="flex flex-col items-center py-4">
             <button class="btn" onclick="my_modal_1.showModal()">想对你说</button>
@@ -189,6 +210,7 @@
   const knowTime = new Date('2023-06-04 12:45:21').getTime();
   const meetTime = new Date('2023-06-22 18:11:25').getTime();
   let loveTime = new Date('2023-08-13 23:53:46').getTime();
+  const nextMeetTime = new Date('2024-02-01').getTime();
 
   const SECOND = 1000;
   const MINUTE = 60 * SECOND;
@@ -243,6 +265,12 @@
         minutes: 0,
         seconds: 0,
       })
+      const nextMeetTimeData = ref({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      })
       onMounted(() => {
         count();
       })
@@ -254,6 +282,7 @@
           if (loveTime) {
             passedLoveTimeData.value = parseTimeData(Date.now() - loveTime)
           }
+          nextMeetTimeData.value = parseTimeData(nextMeetTime - Date.now())
           count();
         }, 1000)
       }
@@ -273,6 +302,7 @@
         passedKnowTimeData,
         passedMeetTimeData,
         passedLoveTimeData,
+        nextMeetTimeData,
         showBtn,
         onClick,
       }
