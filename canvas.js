@@ -23,10 +23,13 @@ class HalloweenAnimation {
   constructor(selectors) {
     this.renderList = []
     this.scanning = false
+    this.dpr = window.devicePixelRatio
 
     const canvas = document.querySelector(selectors)
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth * this.dpr
+    canvas.height = window.innerHeight * this.dpr
+    canvas.style.width = window.innerWidth + 'px'
+    canvas.style.height = window.innerHeight + 'px'
     this.canvas = canvas
     this.ctx = this.canvas.getContext('2d')
   }
@@ -109,15 +112,15 @@ class HalloweenAnimation {
     const _this = this
 
     return function (timestamp) {
-      const { ctx } = _this
+      const { dpr, ctx } = _this
 
       if((timestamp - this.start) / this.duration >= 1) return true;
 
       ctx.save()
       const sx = getSourceX(this, timestamp)
       const dy = getDestinationY(this, timestamp)
-      ctx.translate(dx, dy)
-      ctx.scale(scaleRatio, scaleRatio)
+      ctx.translate(dx * dpr, dy)
+      ctx.scale(scaleRatio * dpr, scaleRatio * dpr)
       ctx.rotate(rotateAngle);
       ctx.globalAlpha = getAlpha(this, timestamp)
       ctx.drawImage(
