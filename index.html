@@ -5,51 +5,26 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/daisyui/3.5.1/full.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      [data-theme=valentine] {
-        color-scheme: light;
-        --pf: 353 74% 60%;
-        --sf: 254 86% 70%;
-        --af: 181 56% 63%;
-        --nf: 336 43% 41%;
-        --b2: 318 46% 82%;
-        --b3: 318 46% 75%;
-        --pc: 356 26% 14%;
-        --sc: 256 20% 15%;
-        --ac: 181 16% 15%;
-        --inc: 239 85% 93%;
-        --suc: 126 38% 89%;
-        --wac: 29 59% 11%;
-        --erc: 11 100% 91%;
-        --rounded-box: 1rem;
-        --rounded-badge: 1.9rem;
-        --animation-btn: .25s;
-        --animation-input: .2s;
-        --btn-text-case: uppercase;
-        --btn-focus-scale: .95;
-        --border-btn: 1px;
-        --tab-border: 1px;
-        --tab-radius: .5rem;
-        --p: 353 74% 67%;
-        --s: 254 86% 77%;
-        --a: 181 56% 70%;
-        --n: 336 43% 48%;
-        --nc: 318 46% 89%;
-        --b1: 318 46% 89%;
-        --bc: 344 38% 28%;
-        --in: 221 83% 53%;
-        --su: 142 76% 36%;
-        --wa: 32 95% 44%;
-        --er: 0 72% 51%;
-        --rounded-btn: 1.9rem
-      }
       [v-cloak] {
         display: none;
+      }
+      .canvas-btn {
+        box-shadow: 0 2px 3px 0 rgba(60,64,67,.3), 0 6px 10px 4px rgba(60,64,67,.15);
       }
     </style>
 </head>
 <body>
 
 <div id="app" class="bg-base-100">
+    <canvas id="my-canvas" class="fixed top-0 left-0 z-[1000] pointer-events-none"></canvas>
+    <div
+        class="canvas-btn fixed right-5 bottom-10 z- flex justify-center items-center w-16 h-16 rounded-full"
+        @click="onClickCanvasBtn"
+    >
+        <img class="w-8 h-8" src="https://www.gstatic.com/delight/animation-engine/halloween/ghost_button.png" alt="">
+    </div>
+
+
     <div v-if="isLove && visible" v-cloak>
         <div class="flex flex-col items-center py-4">
             <span class="pr-4 font-mono text-4xl">相识</span>
@@ -199,6 +174,7 @@
 </div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js"></script>
+<script src="./canvas.js"></script>
 <script>
   if (location.search.includes('debugger')) {
     localStorage.clear();
@@ -296,6 +272,29 @@
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
       const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
 
+      const halloweenAnimation = ref()
+      const counter = ref(0)
+      const flag = ref(false)
+      onMounted(async () => {
+        halloweenAnimation.value = new HalloweenAnimation('#my-canvas')
+        await halloweenAnimation.value.init()
+        flag.value = true
+      })
+      function onClickCanvasBtn() {
+        if (!flag.value) return
+
+        const intervalID = setInterval(() => {
+          if (counter.value > 16) {
+            clearInterval(intervalID)
+            counter.value = 0
+
+            return
+          }
+          halloweenAnimation.value.start()
+          counter.value++
+        }, 500)
+      }
+
       return {
         visible,
         isLove,
@@ -305,6 +304,7 @@
         nextMeetTimeData,
         showBtn,
         onClick,
+        onClickCanvasBtn,
       }
     }
   }).mount('#app')
