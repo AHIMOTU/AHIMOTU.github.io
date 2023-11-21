@@ -17,12 +17,12 @@
 
 <div id="app" class="bg-base-100">
     <canvas id="my-canvas" class="fixed top-0 left-0 z-[1000] pointer-events-none"></canvas>
-    <div
-        class="canvas-btn fixed right-5 bottom-10 z- flex justify-center items-center w-16 h-16 rounded-full"
-        @click="onClickCanvasBtn"
-    >
-        <img class="w-8 h-8" src="https://www.gstatic.com/delight/animation-engine/halloween/ghost_button.png" alt="">
-    </div>
+    <!--<div-->
+    <!--    class="canvas-btn fixed right-5 bottom-10 z- flex justify-center items-center w-16 h-16 rounded-full"-->
+    <!--    @click="onClickCanvasBtn"-->
+    <!--&gt;-->
+    <!--    <img class="w-8 h-8" src="https://www.gstatic.com/delight/animation-engine/halloween/ghost_button.png" alt="">-->
+    <!--</div>-->
 
 
     <div v-if="isLove && visible" v-cloak>
@@ -116,16 +116,49 @@
         </div>
         <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
+                <h3 class="font-bold text-lg">亲爱的媛宝</h3>
+                <p class="py-4">我们在一起100天啦！👏</p>
+                <p class="py-4">
+                    你曾问我100天有什么纪念的<br>
+                    在我看来100天<br>
+                    意味着彼此更深的了解<br>
+                    意味着互相的认可<br>
+                    意味着感情的新阶段
+                </p>
+                <p class="py-4">
+                    我们的100天<br>
+                    与之前好像<br>
+                    依然有说不完的话题<br>
+                    依然没有错过彼此的每一个节日<br>
+                    我依然是最幸运和幸福的人<br>
+                    你依然是最可爱的、最美丽、最优秀的女生<br>
+                    但又不一样<br>
+                    有一起面对过从未遇到过的困难<br>
+                    有令人难忘的四川之旅<br>
+                    当然也有惹你不高兴<br>
+                    有苦有甜、有开心有难过<br>
+                    但我们一起诠释了什么是情比金坚❤️‍🔥
+                </p>
+                <p class="py-4">
+                    希望我们<br>
+                    能一直陪在彼此身边<br>
+                    能成为彼此最爱的人<br>
+                    走到最后👩‍❤️‍👨
+                </p>
+                <p class="py-4">下一个100天，我们来啦！</p>
+                <div class="modal-action">
+                    <button class="btn">爱你的湘子</button>
+                </div>
                 <!--<h3 class="font-bold text-lg">MY媛宝</h3>-->
                 <!--<p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>-->
                 <!--<div class="modal-action">-->
                 <!--    <button class="btn">湘子</button>-->
                 <!--</div>-->
-                <h3 class="font-bold text-lg">张老师</h3>
-                <p class="py-4">教师节快乐！愿你开心工作每一天！<br />PS: 我的媛宝辛苦啦！希望你能早点当上领导不再被欺负😁</p>
-                <div class="modal-action">
-                    <button class="btn">张同学</button>
-                </div>
+                <!--<h3 class="font-bold text-lg">张老师</h3>-->
+                <!--<p class="py-4">教师节快乐！愿你开心工作每一天！<br />PS: 我的媛宝辛苦啦！希望你能早点当上领导不再被欺负😁</p>-->
+                <!--<div class="modal-action">-->
+                <!--    <button class="btn">张同学</button>-->
+                <!--</div>-->
             </form>
         </dialog>
     </div>
@@ -180,7 +213,7 @@
     localStorage.clear();
   }
 
-  const { createApp, ref, onMounted } = Vue
+  const { createApp, ref, computed, onMounted } = Vue
 
   //
   const knowTime = new Date('2023-06-04 12:45:21').getTime();
@@ -270,7 +303,8 @@
       }
 
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
-      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
+      // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
+      const showBtn = computed(() => passedLoveTimeData.value.days == 100)
 
       const halloweenAnimation = ref()
       const counter = ref(0)
