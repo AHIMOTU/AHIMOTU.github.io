@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center py-4">
+        <div v-if="false" class="flex flex-col items-center py-4">
             <span class="pr-4 font-mono text-4xl">下次相见</span>
             <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
                 <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
@@ -109,6 +109,9 @@
                     <span>sec</span>
                 </div>
             </div>
+        </div>
+        <div class="flex flex-col items-center py-4">
+            <button class="btn" @click="jumpReport">点击查看专属年度报告</button>
         </div>
         <!-- Open the modal using ID.showModal() method -->
         <div v-if="showBtn" class="flex flex-col items-center py-4">
@@ -329,6 +332,10 @@
         }, 500)
       }
 
+      function jumpReport() {
+        location.href = '/report.html'
+      }
+
       return {
         visible,
         isLove,
@@ -339,6 +346,7 @@
         showBtn,
         onClick,
         onClickCanvasBtn,
+        jumpReport
       }
     }
   }).mount('#app')
