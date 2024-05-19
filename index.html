@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center py-4">
+        <div v-if="false" class="flex flex-col items-center py-4">
             <span class="pr-4 font-mono text-4xl">下次相见</span>
             <div class="grid grid-flow-col gap-5 text-center auto-cols-max pt-2">
                 <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
@@ -110,16 +110,17 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center py-4">
-            <button class="btn" @click="jumpReport">点击查看专属年度报告</button>
-        </div>
+        <!--<div class="flex flex-col items-center py-4">-->
+        <!--    <button class="btn" @click="jumpReport">点击查看专属年度报告</button>-->
+        <!--</div>-->
         <!-- Open the modal using ID.showModal() method -->
         <div v-if="showBtn" class="flex flex-col items-center py-4">
-            <button class="btn" onclick="my_modal_1.showModal()">想对你说</button>
+            <!--<button class="btn" onclick="my_modal_1.showModal()">想对你说</button>-->
+            <input v-model="val" type="text" placeholder="最美的这段旅程" class="input input-bordered w-full max-w-xs" />
         </div>
         <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
-                <h3 class="font-bold text-lg">亲爱的媛宝</h3>
+                <!--<h3 class="font-bold text-lg">亲爱的媛宝</h3>
                 <p class="py-4">我们在一起100天啦！👏</p>
                 <p class="py-4">
                     你曾问我100天有什么纪念的<br>
@@ -151,17 +152,22 @@
                 <p class="py-4">下一个100天，我们来啦！</p>
                 <div class="modal-action">
                     <button class="btn">爱你的湘子</button>
+                </div>-->
+                <!--<h3 class="font-bold text-lg">MY媛宝</h3>
+                <p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>
+                <div class="modal-action">
+                    <button class="btn">湘子</button>
+                </div>-->
+                <!--<h3 class="font-bold text-lg">张老师</h3>
+                <p class="py-4">教师节快乐！愿你开心工作每一天！<br />PS: 我的媛宝辛苦啦！希望你能早点当上领导不再被欺负😁</p>
+                <div class="modal-action">
+                    <button class="btn">张同学</button>
+                </div>-->
+                <h3 class="font-bold text-lg">妹妹 妹妹～</h3>
+                <p class="py-4">终于迎来了我们的第一个 520，不过我希望天天都是 520，爱你呦 😘</p>
+                <div class="modal-action">
+                   <button class="btn">永远爱你的哥哥</button>
                 </div>
-                <!--<h3 class="font-bold text-lg">MY媛宝</h3>-->
-                <!--<p class="py-4">七夕快乐，要永远开心哟！<br />无论发生什么事，我都在你身边！</p>-->
-                <!--<div class="modal-action">-->
-                <!--    <button class="btn">湘子</button>-->
-                <!--</div>-->
-                <!--<h3 class="font-bold text-lg">张老师</h3>-->
-                <!--<p class="py-4">教师节快乐！愿你开心工作每一天！<br />PS: 我的媛宝辛苦啦！希望你能早点当上领导不再被欺负😁</p>-->
-                <!--<div class="modal-action">-->
-                <!--    <button class="btn">张同学</button>-->
-                <!--</div>-->
             </form>
         </dialog>
     </div>
@@ -216,7 +222,7 @@
     localStorage.clear();
   }
 
-  const { createApp, ref, computed, onMounted } = Vue
+  const { createApp, ref, computed, onMounted, watch } = Vue
 
   //
   const knowTime = new Date('2023-06-04 12:45:21').getTime();
@@ -307,7 +313,8 @@
 
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
-      const showBtn = computed(() => passedLoveTimeData.value.days == 100)
+      // const showBtn = computed(() => passedLoveTimeData.value.days == 100)
+      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/5/20').getTime())
 
       const halloweenAnimation = ref()
       const counter = ref(0)
@@ -332,6 +339,12 @@
         }, 500)
       }
 
+      const val = ref('')
+      const isRight = computed(() => val.value === '让我们慢一点走')
+      watch(isRight, () => {
+        document.getElementById('my_modal_1').showModal()
+      })
+
       function jumpReport() {
         location.href = '/report.html'
       }
@@ -346,7 +359,8 @@
         showBtn,
         onClick,
         onClickCanvasBtn,
-        jumpReport
+        jumpReport,
+        val,
       }
     }
   }).mount('#app')
