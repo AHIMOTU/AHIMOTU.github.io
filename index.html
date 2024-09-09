@@ -116,7 +116,13 @@
         <!-- Open the modal using ID.showModal() method -->
         <div v-if="showBtn" class="flex flex-col items-center py-4">
             <!--<button class="btn" onclick="my_modal_1.showModal()">想对你说</button>-->
-            <input v-model="val" type="text" placeholder="最美的这段旅程" class="input input-bordered w-full max-w-xs" />
+            <!--<input v-model="val" type="text" placeholder="最美的这段旅程" class="input input-bordered w-full max-w-xs" />-->
+            <div class="divider">芝麻开门</div>
+            <div class="flex">
+                今年是第
+                <input v-model="val" type="text" class="input input-bordered input-xs w-10" />
+                个教师节
+            </div>
         </div>
         <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
@@ -163,10 +169,17 @@
                 <div class="modal-action">
                     <button class="btn">张同学</button>
                 </div>-->
-                <h3 class="font-bold text-lg">妹妹 妹妹～</h3>
+                <!--<h3 class="font-bold text-lg">妹妹 妹妹～</h3>
                 <p class="py-4">终于迎来了我们的第一个 520，不过我希望天天都是 520，爱你呦 😘</p>
                 <div class="modal-action">
                    <button class="btn">永远爱你的哥哥</button>
+                </div>-->
+                <h3 class="font-bold text-lg">张老师</h3>
+                <p>梦绕杏坛，</p>
+                <p>媛育桃李。</p>
+                <p>祝妹妹教师节快乐！我会永远支持你的！</p>
+                <div class="modal-action">
+                    <button class="btn">张同学</button>
                 </div>
             </form>
         </dialog>
@@ -314,7 +327,8 @@
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/8/22').getTime())
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
       // const showBtn = computed(() => passedLoveTimeData.value.days == 100)
-      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/5/21').getTime())
+      // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/5/21').getTime())
+      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/9/10').getTime())
 
       const halloweenAnimation = ref()
       const counter = ref(0)
@@ -340,7 +354,8 @@
       }
 
       const val = ref('')
-      const isRight = computed(() => val.value === '让我们慢一点走')
+      // const isRight = computed(() => val.value === '让我们慢一点走')
+      const isRight = computed(() => val.value == 40)
       watch(isRight, () => {
         document.getElementById('my_modal_1').showModal()
       })
