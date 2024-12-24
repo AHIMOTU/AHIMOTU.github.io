@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"/>
+    <title>Title</title>
+    <style>
+      html,
+      body,
+      #root {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background: black;
+      }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <audio id="bgm" autoplay loop src="./images/ddd.mp3"></audio>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js"
+          }
+        }
+    </script>
+    <script type="module">
+      import * as THREE from 'three';
+
+      const settings = {
+        particles: 1000,
+        radius: 200,
+      };
+
+      const scale = (v, x1, y1, x2, y2) => ((v - x1) * (y2 - x2)) / (y1 - x1) + x2;
+      const deg = (a) => (a * Math.PI) / 180;
+
+      let renderer, container;
+
+      function createRenderer() {
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        container = document.getElementById('app');
+        container.appendChild(renderer.domElement);
+      }
+
+      let camera;
+
+      function createCamera() {
+        camera = new THREE.PerspectiveCamera(
+          40,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          10000
+        );
+        camera.position.set(-25, 50, 300);
+      }
+
+      let scene;
+
+      function createScene() {
+        scene = new THREE.Scene();
+      }
+
+      function createLights() {
+        const ambientLight = new THREE.HemisphereLight(0xddeeff, 0x202020, 5);
+        scene.add(ambientLight);
+      }
+
+      let particleSystem, uniforms, geometry;
+
+      function createParticles() {
+        uniforms = {
+          pointTexture: {
+            value: new THREE.TextureLoader().load(
+              "https://raw.githubusercontent.com/timoxley/threejs/master/examples/textures/sprites/spark1.png"
+            ),
+          },
+          u_time: {
+            type: "f",
+            value: 0,
+          },
+          u_screenWidth: {
+            type: "f",
+            value: window.innerWidth,
+          },
+          u_screenHeight: {
+            type: "f",
+            value: window.innerHeight,
+          },
+        };
+        const shaderMaterial = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: `
+      uniform float u_time;
+      uniform float u_screenWidth;
+      uniform float u_screenHeight;
+      attribute float size;
+      varying vec3 vColor;
+
+      void main() {
+        vec2 screen = vec2(u_screenWidth, u_screenHeight);
+        vec2 uv = position.xy / screen.xy;
+        vColor = color;
+        vec3 pos = position;
+        // pos.y += sin(pos.x * 0.2 + u_time * 0.02);
+        vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
+        gl_PointSize = size * ( 700. / -mvPosition.z );
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    `,
+          fragmentShader: `
+      uniform sampler2D pointTexture;
+      uniform float u_time;
+      uniform float u_screenWidth;
+      uniform float u_screenHeight;
+      varying vec3 vColor;
+
+      void main() {
+        vec2 screen = vec2(u_screenWidth, u_screenHeight);
+        vec2 uv = gl_FragCoord.xy / screen.xy;
+        vec3 color = vColor;
+        gl_FragColor = vec4( color, 1.);
+        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord);
+      }
+    `,
+          blending: THREE.AdditiveBlending,
+          depthTest: false,
+          transparent: true,
+          vertexColors: true,
+        });
+        const positions = [];
+        const colors = [];
+        const sizes = [];
+        const color = new THREE.Color();
+        for (let i = 0; i < settings.particles; i++) {
+          const turns = scale(i, 0, settings.particles, 0, deg(2350));
+          const radius = scale(i, 0, settings.particles, 0, 40);
+          const height = scale(i, 0, settings.particles, 100, 0);
+          const x = -20 + radius * Math.sin(turns);
+          const y = height;
+          const z = radius * Math.cos(turns);
+
+          positions.push(x);
+          positions.push(y);
+          positions.push(z);
+
+          const hue = scale(i, 0, settings.particles, 0.1, -0.24);
+          const lightness = scale(Math.cos(turns), -1, 1, 0.01, 0.2);
+          color.setHSL(hue, 1.0, lightness);
+          colors.push(color.r, color.g, color.b);
+          sizes.push(20);
+        }
+        geometry = new THREE.BufferGeometry();
+        geometry.attributes.position = new THREE.Float32BufferAttribute(positions, 3);
+        geometry.attributes.color = new THREE.Float32BufferAttribute(colors, 3);
+        geometry.attributes.size = new THREE.Float32BufferAttribute(sizes, 1);
+        particleSystem = new THREE.Points(geometry, shaderMaterial);
+        scene.add(particleSystem);
+        console.log(particleSystem);
+      }
+
+      let time = 0;
+      const render = () => {
+        time += 0.03;
+        const sizes = geometry.attributes.size.array;
+        // const positions = geometry.attributes.position.array;
+        for (let i = 0; i < settings.particles; i++) {
+          const s = scale(i, 0, settings.particles, 12, 24);
+          const sin = scale(Math.sin(time - i * 0.002), -1, 1, -0.1, 1);
+          sizes[i] = sin * s;
+
+          if (i < 2) {
+            sizes[i] = 10 * (i + 1) * (sin * s + 0.3);
+          }
+        }
+        geometry.attributes.size.needsUpdate = true;
+        uniforms.u_time.value = time;
+        renderer.render(scene, camera);
+      };
+
+      function animate() {
+        requestAnimationFrame(animate);
+        render();
+      }
+
+      const init = () => {
+        createRenderer();
+        createCamera();
+        createScene();
+        createLights();
+        createParticles();
+        animate();
+      };
+      init();
+
+      const onWindowResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      };
+      window.addEventListener("resize", onWindowResize, false);
+
+      document.addEventListener('touchstart', () => {
+        playBgm();
+      });
+      document.addEventListener('touchmove', () => {
+        playBgm();
+      });
+
+      function playBgm() {
+        const bgmEl = document.querySelector('#bgm')
+        bgmEl.play()
+      }
+    </script>
+</body>
+</html>
