@@ -131,20 +131,20 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center py-4">
+        <!--<div class="flex flex-col items-center py-4">-->
             <!--<button class="btn" @click="jumpReport">点击查看专属年度报告</button>-->
-            <a class="btn" href="./christmas.html">Merry Christmas !</a>
-        </div>
+            <!--<a class="btn" href="./christmas.html">Merry Christmas !</a>-->
+        <!--</div>-->
         <!-- Open the modal using ID.showModal() method -->
         <div v-if="showBtn" class="flex flex-col items-center py-4">
-            <!--<button class="btn" onclick="my_modal_1.showModal()">想对你说</button>-->
+            <button class="btn" onclick="my_modal_1.showModal()">想对你说</button>
             <!--<input v-model="val" type="text" placeholder="最美的这段旅程" class="input input-bordered w-full max-w-xs" />-->
-            <div class="divider">芝麻开门</div>
-            <div class="flex">
-                今年是第
-                <input v-model="val" type="text" class="input input-bordered input-xs w-10" />
-                个教师节
-            </div>
+            <!--<div class="divider">芝麻开门</div>-->
+            <!--<div class="flex">-->
+            <!--    今年是第-->
+            <!--    <input v-model="val" type="text" class="input input-bordered input-xs w-10" />-->
+            <!--    个教师节-->
+            <!--</div>-->
         </div>
         <dialog id="my_modal_1" class="modal">
             <form method="dialog" class="modal-box">
@@ -196,12 +196,19 @@
                 <div class="modal-action">
                    <button class="btn">永远爱你的哥哥</button>
                 </div>-->
-                <h3 class="font-bold text-lg">张老师</h3>
-                <p>梦绕杏坛，</p>
-                <p>媛育桃李。</p>
-                <p>祝妹妹教师节快乐！我会永远支持你的！</p>
+                <!--<h3 class="font-bold text-lg">张老师</h3>-->
+                <!--<p>梦绕杏坛，</p>-->
+                <!--<p>媛育桃李。</p>-->
+                <!--<p>祝妹妹教师节快乐！我会永远支持你的！</p>-->
+                <!--<div class="modal-action">-->
+                <!--    <button class="btn">张同学</button>-->
+                <!--</div>-->
+                <h3 class="font-bold text-lg">亲爱的老婆</h3>
+                <p>女神节快乐！</p>
+                <p>愿你永远美丽、快乐，做最幸福的自己！</p>
+                <p>爱你，不止今天，而是每一天！</p>
                 <div class="modal-action">
-                    <button class="btn">张同学</button>
+                    <button class="btn">永远爱你的老公 😘</button>
                 </div>
             </form>
         </dialog>
@@ -359,7 +366,8 @@
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2023/9/10').getTime())
       // const showBtn = computed(() => passedLoveTimeData.value.days == 100)
       // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/5/21').getTime())
-      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/9/10').getTime())
+      // const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2024/9/10').getTime())
+      const showBtn = ref(new Date().setHours(0, 0, 0, 0) === new Date('2025/3/7').getTime())
 
       const halloweenAnimation = ref()
       const counter = ref(0)
